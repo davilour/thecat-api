@@ -1,12 +1,14 @@
-import "./App.css";
-import Select from "./Components/Select";
-import Card from "./Components/Card";
+import Select from "./Select";
+import Card from "./Cards";
 
 function App() {
     return (
         <>
-            <Select />
-            <Card />
+            <div className="app">
+                <h2>Selecione a raça de um gatinho!</h2>
+                <Select />
+                <Card />
+            </div>
         </>
     );
 }
