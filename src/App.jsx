@@ -3,6 +3,7 @@ import Card from "./Cards";
 import Body from "./Body";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "./index.css";
 
 function App() {
     const [cat, setCat] = useState([]);

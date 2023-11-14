@@ -11,3 +11,56 @@ h2 {
     text-align: center;
     padding-top: 50px;
 }
+
+.card {
+    box-shadow: 1px 2px 10px rgba(7, 7, 7, 0.2);
+    cursor: pointer;
+    transition: transform 0.1s;
+    max-width: 320px;
+}
+
+.card:hover {
+    transform: scale(1.025);
+}
+
+.card p {
+    padding: 25px;
+    text-align: center;
+    font-size: 2rem;
+    text-transform: capitalize;
+}
+
+img {
+    width: 100%;
+}
+
+.bounce {
+    animation: bounce 1s;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    5% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    15% {
+        transform: translateY(0);
+        padding-bottom: 5px;
+    }
+
+    30% {
+        transform: translateY(-50%);
+    }
+
+    100% {
+        transform: translateY(0);
+        padding-bottom: 9px;
+        opacity: 1;
+    }
+}

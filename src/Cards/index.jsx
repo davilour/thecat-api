@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import "./style.css";
 
 const Card = ({ cat, name, onCardClick }) => {
     const [isLoading, setIsLoading] = useState(false);
