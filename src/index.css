@@ -1,3 +1,5 @@
+/* STYLED GLOBALS */
+
 * {
     border: 0;
     margin: 0;
@@ -6,8 +8,6 @@
     color: #222;
     font-family: "Courier New", Courier, monospace;
 }
-
-/* STYLED GLOBALS */
 
 body {
     background-color: #eee;

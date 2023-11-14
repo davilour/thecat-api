@@ -1,8 +1,18 @@
-# React + Vite
+# SERVICE DESK
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Projeto feito para buscar informações de gatos
 
-Currently, two official plugins are available:
+projeto feito em React + Vite usando a API The cat API
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Execução do projeto
+
+Após entrar no projeto via você poderá executar ele pelo seguinte comando
+
+```bash
+  cd catapi\cat-api
+  npm run dev
+```
+
+## Autores
+
+-   [@davilour](https://github.com/davilour)
