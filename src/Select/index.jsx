@@ -1,8 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
-import axios from "axios"; // Importe a biblioteca Axios
+import axios from "axios";
+import PropTypes from "prop-types";
 
-const Select = () => {
+const Select = ({ onSelectBreed }) => {
     const [breeds, setBreeds] = useState([]);
 
     useEffect(() => {
@@ -11,8 +11,9 @@ const Select = () => {
 
     const updateBreeds = () => {
         axios
-            .get(`https://api.thecatapi.com/v1/breeds`) // Use a instância da biblioteca Axios para fazer a solicitação
+            .get(`https://api.thecatapi.com/v1/breeds`)
             .then((response) => {
+                console.log(response.data);
                 setBreeds(response.data);
             })
             .catch((error) => {
@@ -20,17 +21,26 @@ const Select = () => {
             });
     };
 
+    const handleSelectChange = (e) => {
+        const breedId = e.target.value; // ID da raça selecionada
+        onSelectBreed(breedId);
+    };
+
     return (
         <div>
-            <select>
+            <select onChange={handleSelectChange}>
+                <option value="">Selecione uma raça</option>
                 {breeds.map((breed) => (
-                    <option value={breed.id} key={breed.id}>
+                    <option key={breed.id} value={breed.id}>
                         {breed.name}
                     </option>
                 ))}
             </select>
         </div>
     );
+};
+Select.propTypes = {
+    onSelectBreed: PropTypes.func.isRequired, // Validação da propriedade onSelectBreed como uma função obrigatória
 };
 
 export default Select;

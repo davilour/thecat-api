@@ -3,7 +3,7 @@ import axios from "axios";
 const api = async () => {
     const apiBaseUrl = "https://api.thecatapi.com/v1"; // URL base da API
     const apiKey =
-        "live_bzLCTawJsBZp00ZjtcbokGRMJCumeLL4003NN60xlDANL0B9wkuCUEMPG6fD4S31"; // Substitua pela sua chave da API
+        "live_bzLCTawJsBZp00ZjtcbokGRMJCumeLL4003NN60xlDANL0B9wkuCUEMPG6fD4S31";
 
     try {
         const response = await axios.get(`${apiBaseUrl}/breeds`, {
