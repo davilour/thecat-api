@@ -1,33 +1,22 @@
 import Select from "./Select";
 import Card from "./Cards";
-import Body from "./Body";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import "./index.css";
 
 function App() {
-    const [cat, setCat] = useState([]);
-    const [selectedBreedId, setSelectedBreedId] = useState("");
+    const [selectedBreed, setSelectedBreed] = useState("");
 
-    const handleSelectBreed = (breedId) => {
-        setSelectedBreedId(breedId); // Atualiza o estado com o ID da raça selecionada
+    const handleSelectBreed = (breed) => {
+        setSelectedBreed(breed);
+        updateCat(selectedBreed);
     };
 
-    useEffect(() => {
-        // Verifique se um ID de raça foi selecionado antes de buscar a imagem
-        if (selectedBreedId) {
-            updateCat(selectedBreedId);
-        }
-    }, [selectedBreedId]);
-
-    const updateCat = (breedId) => {
+    const updateCat = (breed) => {
         axios
-            .get(
-                `https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`
-            )
+            .get(`https://api.thecatapi.com/v1/breeds/${breed.id}`)
             .then((response) => {
-                console.log(response.data);
-                setCat(response.data);
+                setSelectedBreed(response.data);
             })
             .catch((error) => {
                 console.error("Erro ao buscar a imagem do gato:", error);
@@ -39,11 +28,7 @@ function App() {
             <div className="app">
                 <h2>Selecione a raça de um gatinho!</h2>
                 <Select onSelectBreed={handleSelectBreed} />
-
-                {cat.length > 0 && (
-                    <Card cat={cat[Math.floor(Math.random() * cat.length)]} />
-                )}
-                <Body />
+                {selectedBreed && <Card selectedBreed={selectedBreed} />}
             </div>
         </>
     );

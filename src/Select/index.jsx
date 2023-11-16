@@ -14,7 +14,6 @@ const Select = ({ onSelectBreed }) => {
         axios
             .get(`https://api.thecatapi.com/v1/breeds`)
             .then((response) => {
-                console.log(response.data);
                 setBreeds(response.data);
             })
             .catch((error) => {
@@ -23,8 +22,11 @@ const Select = ({ onSelectBreed }) => {
     };
 
     const handleSelectChange = (e) => {
-        const breedId = e.target.value; // ID da raça selecionada
-        onSelectBreed(breedId);
+        const selectedBreed = breeds.find(
+            (breed) => breed.id === e.target.value
+        );
+        onSelectBreed(selectedBreed); //
+        console.log("Selected Breed:", selectedBreed);
     };
 
     return (
