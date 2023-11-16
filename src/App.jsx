@@ -9,18 +9,24 @@ function App() {
 
     const handleSelectBreed = (breed) => {
         setSelectedBreed(breed);
-        updateCat(selectedBreed);
+        updateCat();
     };
 
+    // const handleCardImageClick = () => {
+    //     updateCat();
+    // };
+
     const updateCat = (breed) => {
-        axios
-            .get(`https://api.thecatapi.com/v1/breeds/${breed.id}`)
-            .then((response) => {
-                setSelectedBreed(response.data);
-            })
-            .catch((error) => {
-                console.error("Erro ao buscar a imagem do gato:", error);
-            });
+        if (breed && breed.id) {
+            axios
+                .get(`https://api.thecatapi.com/v1/breeds/${breed.id}`)
+                .then((response) => {
+                    setSelectedBreed(response.data);
+                })
+                .catch((error) => {
+                    console.error("Erro ao buscar a imagem do gato:", error);
+                });
+        }
     };
 
     return (
@@ -28,7 +34,10 @@ function App() {
             <div className="app">
                 <h2>Selecione a raça de um gatinho!</h2>
                 <Select onSelectBreed={handleSelectBreed} />
-                {selectedBreed && <Card selectedBreed={selectedBreed} />}
+                <Card
+                    selectedBreed={selectedBreed}
+                    //onCardImageClick={handleCardImageClick}
+                />
             </div>
         </>
     );

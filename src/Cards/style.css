@@ -1,15 +1,22 @@
 p {
-    font-size: 10px;
     color: #666;
-    border-radius: 3px;
+    font-weight: bold;
+    display: flex;
+    margin-left: 7%;
+    justify-content: center;
+}
+h4 {
+    font-size: 20px;
+    color: #666;
     padding-left: 10px;
     font-weight: bold;
-    font-family: "Courier New", Courier, monospace;
-    margin-bottom: 20px;
-    display: flex;
     text-align: center;
-    padding-top: 50px;
+    margin-left: 30px;
+    font-weight: normal;
+    margin-right: 40px;
+    justify-content: center;
 }
+
 .buttonwiki {
     font-family: "Open Sans", sans-serif;
     font-family: "Poppins", sans-serif;

@@ -42,12 +42,15 @@ const Card = ({ selectedBreed }) => {
                 console.error("Erro ao buscar a imagem do gato:", error);
                 setIsLoadingImage(false);
             });
-    }, [selectedBreed.id]);
+    }, [selectedBreed]);
 
     useEffect(() => {
-        // Atualize a imagem e as informações do gato quando a raça selecionada mudar
         updateCatInfo();
     }, [selectedBreed.id, updateCatInfo]);
+
+    if (!selectedBreed) {
+        return <p></p>;
+    }
 
     return (
         <div className="card">
@@ -56,13 +59,16 @@ const Card = ({ selectedBreed }) => {
             ) : (
                 <>
                     {catImage && catImage.url && (
-                        <img src={catImage.url} alt={selectedBreed.name} />
+                        <img
+                            src={catImage.url}
+                            alt={selectedBreed.id}
+                            //onClick={onCardImageClick}
+                        />
                     )}
-                    <p>Nome: {catInfo && catInfo.name}</p>
-                    <p>Origem: {catInfo && catInfo.origin}</p>
-                    <p>
-                        Expectativa de vida: {catInfo && catInfo.life_span} Anos
-                    </p>
+                    <h4>Origem: </h4>
+                    <p>{catInfo && catInfo.origin}</p>
+                    <h4>Expectativa de vida:</h4>
+                    <p>{catInfo && catInfo.life_span} Anos</p>
                     <button
                         className="buttonwiki"
                         onClick={() => {
@@ -82,8 +88,10 @@ const Card = ({ selectedBreed }) => {
 };
 
 Card.propTypes = {
-    selectedBreed: PropTypes.object.isRequired,
-    //onCardImageClick: PropTypes.func.isRequired,
+    selectedBreed: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        onCardImageClick: PropTypes.func.isRequired,
+    }).isRequired,
 };
 
 export default Card;
