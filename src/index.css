@@ -18,3 +18,10 @@ body {
     align-items: center;
     padding: 60px;
 }
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}

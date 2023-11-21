@@ -50,6 +50,7 @@ h4 {
     box-shadow: 1px 2px 10px rgba(7, 7, 7, 0.2);
     transition: transform 0.1s;
     max-width: 320px;
+    margin-bottom: 20px; /* Adiciona um espaçamento inferior entre os cards */
 }
 
 .card:hover {

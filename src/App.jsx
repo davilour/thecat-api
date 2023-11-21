@@ -1,11 +1,12 @@
 import Select from "./Select";
 import Card from "./Cards";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import "./index.css";
 
 function App() {
     const [selectedBreed, setSelectedBreed] = useState("");
+    const [initialBreeds, setInitialBreeds] = useState([]);
 
     const handleSelectBreed = (breed) => {
         setSelectedBreed(breed);
@@ -29,15 +30,42 @@ function App() {
         }
     };
 
+    useEffect(() => {
+        // Quando o componente é montado, obtemos as 10 raças iniciais
+        axios
+            .get("https://api.thecatapi.com/v1/breeds")
+            .then((response) => {
+                // Pega 10 raças aleatórias
+                const randomBreeds = getRandomBreeds(response.data, 10);
+                setInitialBreeds(randomBreeds);
+            })
+            .catch((error) => {
+                console.error("Erro ao buscar raças iniciais:", error);
+            });
+    }, []);
+
+    const getRandomBreeds = (breeds, count) => {
+        const shuffledBreeds = breeds.sort(() => 0.5 - Math.random());
+        return shuffledBreeds.slice(0, count);
+    };
+
     return (
         <>
             <div className="app">
                 <h2>Selecione a raça de um gatinho!</h2>
                 <Select onSelectBreed={handleSelectBreed} />
-                <Card
-                    selectedBreed={selectedBreed}
-                    //onCardImageClick={handleCardImageClick}
-                />
+                <div className="card-container">
+                    {selectedBreed ? (
+                        <Card
+                            key={selectedBreed.id}
+                            selectedBreed={selectedBreed}
+                        />
+                    ) : (
+                        initialBreeds.map((breed) => (
+                            <Card key={breed.id} selectedBreed={breed} />
+                        ))
+                    )}
+                </div>
             </div>
         </>
     );

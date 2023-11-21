@@ -48,10 +48,6 @@ const Card = ({ selectedBreed }) => {
         updateCatInfo();
     }, [selectedBreed.id, updateCatInfo]);
 
-    if (!selectedBreed) {
-        return <p></p>;
-    }
-
     return (
         <div className="card">
             {isLoadingImage || isLoadingInfo ? (
@@ -65,6 +61,8 @@ const Card = ({ selectedBreed }) => {
                             //onClick={onCardImageClick}
                         />
                     )}
+                    <h4>Nome:</h4>
+                    <p>{catInfo && catInfo.name}</p>
                     <h4>Origem: </h4>
                     <p>{catInfo && catInfo.origin}</p>
                     <h4>Expectativa de vida:</h4>
@@ -87,11 +85,11 @@ const Card = ({ selectedBreed }) => {
     );
 };
 
-Card.propTypes = {
-    selectedBreed: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        onCardImageClick: PropTypes.func.isRequired,
-    }).isRequired,
-};
+// Card.propTypes = {
+//     selectedBreed: PropTypes.shape({
+//         id: PropTypes.string.isRequired,
+//         onCardImageClick: PropTypes.func.isRequired,
+//     }).isRequired,
+// };
 
 export default Card;
