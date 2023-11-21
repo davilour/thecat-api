@@ -31,24 +31,24 @@ function App() {
     };
 
     useEffect(() => {
-        // Quando o componente é montado, obtemos as 10 raças iniciais
-        axios
-            .get("https://api.thecatapi.com/v1/breeds")
-            .then((response) => {
-                // Pega 10 raças aleatórias
-                const randomBreeds = getRandomBreeds(response.data, 10);
-                setInitialBreeds(randomBreeds);
-            })
-            .catch((error) => {
-                console.error("Erro ao buscar raças iniciais:", error);
-            });
+        if (initialBreeds) {
+            axios
+                .get("https://api.thecatapi.com/v1/breeds")
+                .then((response) => {
+                    // Pega 10 raças aleatórias
+                    const randomBreeds = getRandomBreeds(response.data, 10);
+                    setInitialBreeds(randomBreeds);
+                })
+                .catch((error) => {
+                    console.error("Erro ao buscar raças iniciais:", error);
+                });
+        }
     }, []);
 
     const getRandomBreeds = (breeds, count) => {
-        const shuffledBreeds = breeds.sort(() => 0.5 - Math.random());
+        const shuffledBreeds = breeds.sort(() => Math.random() - Math.random());
         return shuffledBreeds.slice(0, count);
     };
-
     return (
         <>
             <div className="app">

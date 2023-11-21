@@ -19,6 +19,7 @@ const Select = ({ onSelectBreed }) => {
             .catch((error) => {
                 console.error("Erro ao buscar as raças de gatos:", error);
             });
+        console.log(breeds);
     };
 
     const handleSelectChange = (e) => {
