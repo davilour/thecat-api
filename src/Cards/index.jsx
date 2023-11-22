@@ -1,7 +1,8 @@
-// Card.js
 import { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import CommentInput from "../Comments/index.jsx";
+import { firestore } from "/src/services/firebase.js"; // Importe o firestore do seu arquivo firebase.js
 import "./style.css";
 
 const Card = ({ selectedBreed }) => {
@@ -9,6 +10,7 @@ const Card = ({ selectedBreed }) => {
     const [isLoadingInfo, setIsLoadingInfo] = useState(false);
     const [catImage, setCatImage] = useState(null);
     const [catInfo, setCatInfo] = useState(null);
+    const [comments, setComments] = useState([]);
 
     const updateCatInfo = useCallback(() => {
         setIsLoadingImage(true);
@@ -45,8 +47,43 @@ const Card = ({ selectedBreed }) => {
     }, [selectedBreed]);
 
     useEffect(() => {
+        // Buscar comentários do Firestore quando a raça é selecionada
+        const fetchComments = async () => {
+            try {
+                const commentsSnapshot = await firestore
+                    .collection("comments")
+                    .doc(selectedBreed.id)
+                    .collection("comments")
+                    .get();
+
+                const fetchedComments = commentsSnapshot.docs.map(
+                    (doc) => doc.data().comment
+                );
+                setComments(fetchedComments);
+            } catch (error) {
+                console.error("Erro ao buscar comentários:", error);
+            }
+        };
+
+        fetchComments();
         updateCatInfo();
     }, [selectedBreed.id, updateCatInfo]);
+
+    const handleCommentSubmit = async (comment) => {
+        try {
+            // Enviar comentário para o Firestore
+            await firestore
+                .collection("comments")
+                .doc(selectedBreed.id)
+                .collection("comments")
+                .add({ comment });
+
+            // Atualizar localmente a lista de comentários
+            setComments((prevComments) => [...prevComments, comment]);
+        } catch (error) {
+            console.error("Erro ao enviar comentário:", error);
+        }
+    };
 
     return (
         <div className="card">
@@ -55,11 +92,7 @@ const Card = ({ selectedBreed }) => {
             ) : (
                 <>
                     {catImage && catImage.url && (
-                        <img
-                            src={catImage.url}
-                            alt={selectedBreed.id}
-                            //onClick={onCardImageClick}
-                        />
+                        <img src={catImage.url} alt={selectedBreed.id} />
                     )}
                     <h4>Nome:</h4>
                     <p>{catInfo && catInfo.name}</p>
@@ -79,17 +112,25 @@ const Card = ({ selectedBreed }) => {
                     >
                         WIKIPEDIA
                     </button>
+
+                    <CommentInput onCommentSubmit={handleCommentSubmit} />
+
+                    <div>
+                        <h4>Comentários:</h4>
+                        <ul>
+                            {comments.map((comment, index) => (
+                                <li key={index}>{comment}</li>
+                            ))}
+                        </ul>
+                    </div>
                 </>
             )}
         </div>
     );
 };
 
-// Card.propTypes = {
-//     selectedBreed: PropTypes.shape({
-//         id: PropTypes.string.isRequired,
-//         onCardImageClick: PropTypes.func.isRequired,
-//     }).isRequired,
-// };
+Card.propTypes = {
+    selectedBreed: PropTypes.object.isRequired,
+};
 
 export default Card;
