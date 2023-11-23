@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-//import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import "./style.css";
 
 const Select = ({ onSelectBreed }) => {
@@ -19,7 +19,6 @@ const Select = ({ onSelectBreed }) => {
             .catch((error) => {
                 console.error("Erro ao buscar as raças de gatos:", error);
             });
-        console.log(breeds);
     };
 
     const handleSelectChange = (e) => {
@@ -42,8 +41,8 @@ const Select = ({ onSelectBreed }) => {
         </div>
     );
 };
-// Select.propTypes = {
-//     onSelectBreed: PropTypes.func.isRequired, // Validação da propriedade onSelectBreed como uma função obrigatória
-// };
+Select.propTypes = {
+    onSelectBreed: PropTypes.func.isRequired, // Validação da propriedade onSelectBreed como uma função obrigatória
+};
 
 export default Select;

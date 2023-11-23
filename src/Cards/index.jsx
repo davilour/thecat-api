@@ -2,7 +2,8 @@ import { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import CommentInput from "../Comments/index.jsx";
-import { firestore } from "/src/services/firebase.js"; // Importe o firestore do seu arquivo firebase.js
+import { collection, getDocs, addDoc } from "firebase/firestore";
+import { firestore } from "/src/services/firebase.js";
 import "./style.css";
 
 const Card = ({ selectedBreed }) => {
@@ -50,11 +51,14 @@ const Card = ({ selectedBreed }) => {
         // Buscar comentários do Firestore quando a raça é selecionada
         const fetchComments = async () => {
             try {
-                const commentsSnapshot = await firestore
-                    .collection("comments")
-                    .doc(selectedBreed.id)
-                    .collection("comments")
-                    .get();
+                const commentsSnapshot = await getDocs(
+                    collection(
+                        firestore,
+                        "comments",
+                        selectedBreed.id,
+                        "comments"
+                    )
+                );
 
                 const fetchedComments = commentsSnapshot.docs.map(
                     (doc) => doc.data().comment
@@ -72,11 +76,10 @@ const Card = ({ selectedBreed }) => {
     const handleCommentSubmit = async (comment) => {
         try {
             // Enviar comentário para o Firestore
-            await firestore
-                .collection("comments")
-                .doc(selectedBreed.id)
-                .collection("comments")
-                .add({ comment });
+            await addDoc(
+                collection(firestore, "comments", selectedBreed.id, "comments"),
+                { comment }
+            );
 
             // Atualizar localmente a lista de comentários
             setComments((prevComments) => [...prevComments, comment]);

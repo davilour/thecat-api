@@ -11,7 +11,7 @@ const CommentInput = ({ onCommentSubmit }) => {
     const handleSubmit = () => {
         if (comment.trim() !== "") {
             onCommentSubmit(comment);
-            setComment(""); // Limpar o input após o envio
+            setComment(""); // Limpar o input
         }
     };
 
@@ -22,8 +22,11 @@ const CommentInput = ({ onCommentSubmit }) => {
                 placeholder="Digite seu comentário..."
                 value={comment}
                 onChange={handleCommentChange}
+                className="inputcomment"
             />
-            <button onClick={handleSubmit}>Enviar Comentário</button>
+            <button className="sendcomment" onClick={handleSubmit}>
+                Enviar Comentário
+            </button>
         </div>
     );
 };
