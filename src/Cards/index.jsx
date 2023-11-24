@@ -118,9 +118,9 @@ const Card = ({ selectedBreed }) => {
 
                     <CommentInput onCommentSubmit={handleCommentSubmit} />
 
-                    <div>
+                    <div className="commentsdiv">
                         <h4>Comentários:</h4>
-                        <ul>
+                        <ul className="ulclass">
                             {comments.map((comment, index) => (
                                 <li key={index}>{comment}</li>
                             ))}
