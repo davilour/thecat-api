@@ -16,6 +16,8 @@ const CommentInput = ({ onCommentSubmit }) => {
         }
     };
 
+
+   
     return (
         <div>
             <input
@@ -24,6 +26,7 @@ const CommentInput = ({ onCommentSubmit }) => {
                 value={comment}
                 onChange={handleCommentChange}
                 className="inputcomment"
+                maxLength={60}
             />
             <button className="sendcomment" onClick={handleSubmit}>
                 Enviar Comentário
